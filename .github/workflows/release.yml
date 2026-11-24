@@ -149,6 +149,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
     strategy:
       fail-fast: false
       matrix:
@@ -163,7 +165,13 @@ jobs:
           path: dist
       - if: needs.plan.outputs.publish != 'true'
         run: uv publish --dry-run --trusted-publishing never ${{ matrix.files }}
-      - if: needs.plan.outputs.publish == 'true'
+      # A PyPI project belongs to the account that first uploads it, so the first release uses the
+      # PYPI_TOKEN secret; once the project has a trusted publisher, delete the secret.
+      - if: needs.plan.outputs.publish == 'true' && env.PYPI_TOKEN != ''
+        run: uv publish --trusted-publishing never ${{ matrix.files }}
+        env:
+          UV_PUBLISH_TOKEN: ${{ env.PYPI_TOKEN }}
+      - if: needs.plan.outputs.publish == 'true' && env.PYPI_TOKEN == ''
         run: uv publish --trusted-publishing always ${{ matrix.files }}
 
   github-release:
