@@ -1,6 +1,6 @@
 [project]
 name = "epochal-sandbox"
-version = "0.1.0"
+version = "0.2.0"
 description = "Epochal sandboxes, in time-portal mode: Linux boxes whose clock and network are held to a past instant."
 readme = "README.md"
 license = "Apache-2.0"
@@ -19,7 +19,7 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
   "Typing :: Typed",
 ]
-dependencies = ["epochal-api>=0.1.0,<0.2", "h2>=4.1,<5"]
+dependencies = ["epochal-api>=0.2.0,<0.3", "h2>=4.1,<5"]
 
 [project.urls]
 Homepage = "https://epochal.com"

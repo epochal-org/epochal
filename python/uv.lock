@@ -110,7 +110,7 @@ wheels = [
 
 [[package]]
 name = "epochal-api"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "api" }
 dependencies = [
     { name = "httpx" },
@@ -150,7 +150,7 @@ dev = [
 
 [[package]]
 name = "epochal-sandbox"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "sandbox" }
 dependencies = [
     { name = "epochal-api" },

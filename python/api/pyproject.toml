@@ -1,6 +1,6 @@
 [project]
 name = "epochal-api"
-version = "0.1.0"
+version = "0.2.0"
 description = "Client for the Epochal API. Its time portal serves web search, web fetch and sandboxes held to a past instant."
 readme = "README.md"
 license = "Apache-2.0"
