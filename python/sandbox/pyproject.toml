@@ -1,6 +1,6 @@
 [project]
 name = "epochal-sandbox"
-version = "0.1.0"
+version = "0.1.1"
 description = "Epochal sandboxes, in time-portal mode: Linux boxes whose clock and network are held to a past instant."
 readme = "README.md"
 license = "Apache-2.0"

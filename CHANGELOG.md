@@ -3,6 +3,14 @@
 Every package in this repository shares one version. Each release lists what changed for users,
 grouped by package, breaking changes first.
 
+## v0.1.1
+
+No changes to the crates, the Python packages or the binaries since v0.1.0.
+
+This is the first release built by the release workflow. Prebuilt `epochal` and `epochal-mcp`
+binaries are attached to the GitHub release with build provenance, and the packages are published
+from GitHub Actions through trusted publishing.
+
 ## v0.1.0
 
 First release of the Epochal SDKs. Their one module is the **Time Portal**: web search, web fetch
