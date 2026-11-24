@@ -3,6 +3,12 @@
 Every package in this repository shares one version. Each release lists what changed for users,
 grouped by package, breaking changes first.
 
+## v0.1.2
+
+No changes to the crates, the Python packages or the binaries since v0.1.1. This release rebuilds
+them from the repository's current history, so each package's source link and build provenance
+name a commit on `main`.
+
 ## v0.1.1
 
 No changes to the crates, the Python packages or the binaries since v0.1.0.
