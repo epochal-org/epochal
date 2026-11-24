@@ -1,0 +1,74 @@
+{
+  "id": "https://world.epochal.com/organization/RgPm6FrEK-Q",
+  "type": "organization",
+  "schema_version": 1,
+  "updated_at": "2026-11-13T21:45:57Z",
+  "properties": {
+    "name": "Adobe",
+    "legal_name": "Adobe Systems Incorporated",
+    "description": "Adobe empowers everyone, everywhere to imagine, create, and bring any digital experience to life. From creators and students to small businesses, global enterprises, and nonprofit organizations — customers choose Adobe products to ideate, collaborate, be more productive, drive business growth, and build remarkable experiences.",
+    "tagline": "Empowering everyone to create. ✨",
+    "domain": "adobe.com",
+    "industry": "Software Development",
+    "specialties": [
+      "Digital Publishing",
+      "Digital Marketing",
+      "Social Marketing",
+      "Web Marketing",
+      "Digital Media",
+      "Software",
+      "Mobile Apps",
+      "Photoshop",
+      "Illustrator",
+      "Web Experience Management",
+      "Creative Cloud",
+      "Acrobat",
+      "Online Analytics",
+      "Social Measurement",
+      "Creative Suite",
+      "Touch Apps"
+    ],
+    "founded_year": 1982,
+    "employee_count": 43511,
+    "headquarters": {
+      "formatted": "San Jose, CA",
+      "street": "345 Park Avenue",
+      "city": "San Jose",
+      "region": "CA",
+      "postal_code": "95110-2704",
+      "country_code": "US"
+    },
+    "revenue_range": {
+      "min_usd": 10000000000,
+      "max_usd": null
+    },
+    "ticker": "ADBE",
+    "exchange": null,
+    "latest_funding_round": {
+      "round_type": "series_unknown",
+      "announced_on": "1984-11-01",
+      "amount": 2500000,
+      "currency": "USD",
+      "investors": [
+        {
+          "id": null,
+          "name": "Apple"
+        }
+      ]
+    },
+    "funding_rounds": [
+      {
+        "round_type": "series_unknown",
+        "announced_on": "1984-11-01",
+        "amount": 2500000,
+        "currency": "USD",
+        "investors": [
+          {
+            "id": null,
+            "name": "Apple"
+          }
+        ]
+      }
+    ]
+  }
+}

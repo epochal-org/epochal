@@ -1,0 +1,91 @@
+{
+  "id": "https://world.epochal.com/place/Y2FsaWZvcm5pYV91c9zgEyAGHUREu9_XLli7ZdQ",
+  "type": "place",
+  "schema_version": 1,
+  "updated_at": "2026-09-18T02:38:01Z",
+  "properties": {
+    "name": "Golden Gate Park",
+    "category": "Park",
+    "categories": [
+      "Park",
+      "Garden",
+      "Tourist attraction"
+    ],
+    "description": "The city's 1,017-acre oasis draws hikers, bikers, art lovers & music fans, plus gardens & museums.",
+    "summary": [],
+    "address": {
+      "formatted": "San Francisco, CA, United States",
+      "street": null,
+      "city": "San Francisco",
+      "region": "California",
+      "postal_code": null,
+      "country_code": "US"
+    },
+    "location": {
+      "lat": 37.7689203,
+      "lon": -122.48297699999999
+    },
+    "phone": "+1 415-831-2700",
+    "website": "https://sfrecpark.org/770/Golden-Gate-Park/",
+    "opening_hours": [
+      {
+        "day": "monday",
+        "hours": "Open 24 hours"
+      },
+      {
+        "day": "tuesday",
+        "hours": "Open 24 hours"
+      },
+      {
+        "day": "wednesday",
+        "hours": "Open 24 hours"
+      },
+      {
+        "day": "thursday",
+        "hours": "Open 24 hours"
+      },
+      {
+        "day": "friday",
+        "hours": "Open 24 hours"
+      },
+      {
+        "day": "saturday",
+        "hours": "Open 24 hours"
+      },
+      {
+        "day": "sunday",
+        "hours": "Open 24 hours"
+      }
+    ],
+    "rating": {
+      "score": 4.8,
+      "review_count": 44744,
+      "distribution": [
+        {
+          "stars": 1,
+          "count": 273
+        },
+        {
+          "stars": 2,
+          "count": 207
+        },
+        {
+          "stars": 3,
+          "count": 1286
+        },
+        {
+          "stars": 4,
+          "count": 6702
+        },
+        {
+          "stars": 5,
+          "count": 36276
+        }
+      ]
+    },
+    "status": {
+      "state": "open",
+      "detected_at": null
+    }
+  }
+}

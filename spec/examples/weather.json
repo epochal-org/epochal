@@ -1,0 +1,108 @@
+{
+  "id": "https://world.epochal.com/weather/6ZZRCnyEeYA",
+  "type": "weather",
+  "schema_version": 1,
+  "updated_at": "2026-11-20T21:51:00Z",
+  "properties": {
+    "name": "New York City",
+    "country_code": "US",
+    "region": "New York",
+    "location": {
+      "lat": 40.71,
+      "lon": -74.01
+    },
+    "timezone": "America/New_York",
+    "current": {
+      "observed_at": "2026-11-20T21:51:00Z",
+      "temperature": {
+        "c": 8.3,
+        "f": 46.9
+      },
+      "model_estimate": false,
+      "humidity_pct": 54.2,
+      "wind": {
+        "speed_kmh": 18.5,
+        "speed_mph": 11.5,
+        "direction_deg": 300
+      },
+      "condition": {
+        "code": 2,
+        "label": "Partly cloudy"
+      }
+    },
+    "today": {
+      "date": "2026-11-20",
+      "status": "preliminary",
+      "model_estimate": false,
+      "high": {
+        "c": 10,
+        "f": 50
+      },
+      "low": {
+        "c": 4.4,
+        "f": 40
+      },
+      "precipitation": {
+        "mm": 0,
+        "inch": 0
+      },
+      "hourly": null
+    },
+    "yesterday": {
+      "date": "2026-11-19",
+      "status": "final",
+      "model_estimate": false,
+      "high": {
+        "c": 12.8,
+        "f": 55
+      },
+      "low": {
+        "c": 6.7,
+        "f": 44
+      },
+      "precipitation": {
+        "mm": 3.3,
+        "inch": 0.13
+      },
+      "hourly": null
+    },
+    "forecast": {
+      "issued_at": "2026-11-20T12:00:00Z",
+      "hourly": [
+        {
+          "time": "2026-11-21T00:00:00Z",
+          "temperature": {
+            "c": 6.9,
+            "f": 44.4
+          },
+          "precipitation": {
+            "mm": 0,
+            "inch": 0
+          }
+        }
+      ],
+      "daily": [
+        {
+          "date": "2026-11-21",
+          "high": {
+            "c": 9.4,
+            "f": 48.9
+          },
+          "low": {
+            "c": 3.1,
+            "f": 37.6
+          },
+          "precipitation": {
+            "mm": 0.2,
+            "inch": 0.01
+          },
+          "condition": {
+            "code": 3,
+            "label": "Overcast"
+          }
+        }
+      ]
+    },
+    "days": null
+  }
+}

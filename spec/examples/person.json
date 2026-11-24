@@ -1,0 +1,87 @@
+{
+  "id": "https://world.epochal.com/person/BUSD3RdF6WI",
+  "type": "person",
+  "schema_version": 1,
+  "updated_at": "2026-11-10T05:31:47Z",
+  "properties": {
+    "name": "Lisa Su",
+    "headline": "Chair & CEO at AMD",
+    "summary": "As chair and chief executive officer at AMD, I am leading AMD's transformation into the industry’s high-performance and adaptive computing leader, helping solve the world's most important challenges by delivering the next-generation of computing and AI solutions.",
+    "industry": "Semiconductor Manufacturing",
+    "location": {
+      "formatted": "Austin, Texas, United States",
+      "country_code": "US"
+    },
+    "follower_count": 239177,
+    "experience": [
+      {
+        "title": "Chair & CEO",
+        "organization": {
+          "id": null,
+          "name": "AMD"
+        },
+        "start_date": "2022-02",
+        "end_date": null,
+        "is_current": true,
+        "location": "United States",
+        "description": null
+      },
+      {
+        "title": "President & CEO",
+        "organization": {
+          "id": null,
+          "name": "AMD"
+        },
+        "start_date": "2014-10",
+        "end_date": "2022-02",
+        "is_current": false,
+        "location": "Austin",
+        "description": null
+      },
+      {
+        "title": "SVP & GM, Global Business Units",
+        "organization": {
+          "id": null,
+          "name": "AMD"
+        },
+        "start_date": "2012-01",
+        "end_date": "2014-10",
+        "is_current": false,
+        "location": null,
+        "description": null
+      }
+    ],
+    "education": [
+      {
+        "school": {
+          "id": null,
+          "name": "Massachusetts Institute of Technology"
+        },
+        "degree": "PhD",
+        "field_of_study": null,
+        "start_date": "1990",
+        "end_date": "1994"
+      },
+      {
+        "school": {
+          "id": null,
+          "name": "Massachusetts Institute of Technology"
+        },
+        "degree": "BS/MS",
+        "field_of_study": null,
+        "start_date": "1986",
+        "end_date": "1991"
+      }
+    ],
+    "skills": [],
+    "languages": [],
+    "posts": [
+      {
+        "text": "It’s been an eventful few weeks, and yesterday was another momentous day.\nThrilled to share that AMD has agreed to acquire World Labs, a truly exceptional AI research and model company led by my friend Fei-Fei Li.\nWe share an ambition to accelerate AI technology and adoption for the good of humanity. That means bringing insights from next-generation models and emerging workloads together with deep co-design and optimization across hardware, software and systems.\nWe also believe in an open AI ecosystem that gives customers choice across models and compute platforms, and this acquisition will allow us to expand our contributions to that ecosystem.\nI’ve always been a huge fan of Fei-Fei’s pioneering work in AI, and I’m incredibly excited about what our teams will accomplish together.",
+        "posted_on": "2026-09-29",
+        "like_count": 1652,
+        "comment_count": 53
+      }
+    ]
+  }
+}

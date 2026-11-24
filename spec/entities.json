@@ -1,0 +1,2131 @@
+{
+  "schemas": {
+    "Entity": {
+      "description": "A company, person, place, crypto asset, or city's weather, and the properties Epochal holds for\nit. New types can be added, so a client must accept a `type` it doesn't know.",
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/OrganizationEntity"
+        },
+        {
+          "$ref": "#/components/schemas/PersonEntity"
+        },
+        {
+          "$ref": "#/components/schemas/CryptoEntity"
+        },
+        {
+          "$ref": "#/components/schemas/WeatherEntity"
+        },
+        {
+          "$ref": "#/components/schemas/PlaceEntity"
+        }
+      ],
+      "discriminator": {
+        "propertyName": "type",
+        "mapping": {
+          "organization": "#/components/schemas/OrganizationEntity",
+          "person": "#/components/schemas/PersonEntity",
+          "crypto": "#/components/schemas/CryptoEntity",
+          "weather": "#/components/schemas/WeatherEntity",
+          "place": "#/components/schemas/PlaceEntity"
+        }
+      },
+      "x-extensible-enum": [
+        "organization",
+        "person",
+        "crypto",
+        "weather",
+        "place"
+      ]
+    },
+    "OrganizationEntity": {
+      "type": "object",
+      "description": "An entity whose `type` is `organization`.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The entity's stable URL, `https://world.epochal.com/<type>/<key>`."
+        },
+        "schema_version": {
+          "type": "integer",
+          "description": "The version of the type's property layout. It is `1` for every type.",
+          "minimum": 0,
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the properties were last refreshed."
+        },
+        "type": {
+          "type": "string",
+          "const": "organization",
+          "enum": [
+            "organization"
+          ],
+          "description": "The entity's type. It sets the shape of `properties`."
+        },
+        "properties": {
+          "$ref": "#/components/schemas/OrganizationProperties",
+          "description": "The properties of a company."
+        }
+      },
+      "required": [
+        "id",
+        "schema_version",
+        "updated_at",
+        "type",
+        "properties"
+      ]
+    },
+    "PersonEntity": {
+      "type": "object",
+      "description": "An entity whose `type` is `person`.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The entity's stable URL, `https://world.epochal.com/<type>/<key>`."
+        },
+        "schema_version": {
+          "type": "integer",
+          "description": "The version of the type's property layout. It is `1` for every type.",
+          "minimum": 0,
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the properties were last refreshed."
+        },
+        "type": {
+          "type": "string",
+          "const": "person",
+          "enum": [
+            "person"
+          ],
+          "description": "The entity's type. It sets the shape of `properties`."
+        },
+        "properties": {
+          "$ref": "#/components/schemas/PersonProperties",
+          "description": "The properties of a person."
+        }
+      },
+      "required": [
+        "id",
+        "schema_version",
+        "updated_at",
+        "type",
+        "properties"
+      ]
+    },
+    "CryptoEntity": {
+      "type": "object",
+      "description": "An entity whose `type` is `crypto`.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The entity's stable URL, `https://world.epochal.com/<type>/<key>`."
+        },
+        "schema_version": {
+          "type": "integer",
+          "description": "The version of the type's property layout. It is `1` for every type.",
+          "minimum": 0,
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the properties were last refreshed."
+        },
+        "type": {
+          "type": "string",
+          "const": "crypto",
+          "enum": [
+            "crypto"
+          ],
+          "description": "The entity's type. It sets the shape of `properties`."
+        },
+        "properties": {
+          "$ref": "#/components/schemas/CryptoProperties",
+          "description": "The properties of a crypto asset, which is one coin, not a trading pair. They hold its latest\nUTC day, the price at a minute, and the price on a date or the daily history that the URL asks\nfor. Each day is rolled up from 1-minute bars of the best market Epochal holds for that day."
+        }
+      },
+      "required": [
+        "id",
+        "schema_version",
+        "updated_at",
+        "type",
+        "properties"
+      ]
+    },
+    "WeatherEntity": {
+      "type": "object",
+      "description": "An entity whose `type` is `weather`.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The entity's stable URL, `https://world.epochal.com/<type>/<key>`."
+        },
+        "schema_version": {
+          "type": "integer",
+          "description": "The version of the type's property layout. It is `1` for every type.",
+          "minimum": 0,
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the properties were last refreshed."
+        },
+        "type": {
+          "type": "string",
+          "const": "weather",
+          "enum": [
+            "weather"
+          ],
+          "description": "The entity's type. It sets the shape of `properties`."
+        },
+        "properties": {
+          "$ref": "#/components/schemas/WeatherProperties",
+          "description": "A place's weather at the instant. It holds the latest report, today's and yesterday's observed\nfigures, and the forecast, or the observed days of a date or range. Today is the local day of\nthe instant. The place is a city, a smaller town, or a landmark. A block is `null` when the\nview doesn't ask for it or the place has no data for it. No block names the source of its\nvalues."
+        }
+      },
+      "required": [
+        "id",
+        "schema_version",
+        "updated_at",
+        "type",
+        "properties"
+      ]
+    },
+    "PlaceEntity": {
+      "type": "object",
+      "description": "An entity whose `type` is `place`.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The entity's stable URL, `https://world.epochal.com/<type>/<key>`."
+        },
+        "schema_version": {
+          "type": "integer",
+          "description": "The version of the type's property layout. It is `1` for every type.",
+          "minimum": 0,
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the properties were last refreshed."
+        },
+        "type": {
+          "type": "string",
+          "const": "place",
+          "enum": [
+            "place"
+          ],
+          "description": "The entity's type. It sets the shape of `properties`."
+        },
+        "properties": {
+          "$ref": "#/components/schemas/PlaceProperties",
+          "description": "The properties of a place, which is a business or point of interest, as of the instant."
+        }
+      },
+      "required": [
+        "id",
+        "schema_version",
+        "updated_at",
+        "type",
+        "properties"
+      ]
+    },
+    "OrganizationProperties": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The company's common name, such as `NVIDIA`."
+        },
+        "legal_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The company's full legal name, such as `NVIDIA Corporation`. `null` when unknown."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "What the company does, in its own words, as plain text. `null` when unknown."
+        },
+        "tagline": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The company's one-line headline, in its own words. `null` when unknown."
+        },
+        "domain": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The website's host without scheme or path, such as `nvidia.com`. `null` when unknown."
+        },
+        "industry": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The primary industry as the profile names it, such as `Computer Hardware Manufacturing`.\n`null` when unknown."
+        },
+        "specialties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The specialties the company lists, distinct, in profile order."
+        },
+        "founded_year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "The year it was founded. `null` when unknown."
+        },
+        "employee_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "The number of employees on the profile. `null` when unknown."
+        },
+        "headquarters": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Address"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Where the company is headquartered. `null` when no part is known."
+        },
+        "revenue_range": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/RevenueRange"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The annual revenue band. `null` when unknown."
+        },
+        "ticker": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The stock ticker of the listing, such as `NVDA`. `null` when not listed or unknown."
+        },
+        "exchange": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The listing's exchange code as the profile writes it, such as `NASDAQ`. `null` when unknown."
+        },
+        "latest_funding_round": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/FundingRound"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The same round as `funding_rounds[0]`. `null` when `funding_rounds` is empty."
+        },
+        "funding_rounds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/FundingRound"
+          },
+          "description": "Dated rounds announced on or before `updated_at`, newest first, without exact duplicates."
+        }
+      },
+      "required": [
+        "name",
+        "legal_name",
+        "description",
+        "tagline",
+        "domain",
+        "industry",
+        "specialties",
+        "founded_year",
+        "employee_count",
+        "headquarters",
+        "revenue_range",
+        "ticker",
+        "exchange",
+        "latest_funding_round",
+        "funding_rounds"
+      ],
+      "description": "The properties of a company."
+    },
+    "PersonProperties": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The person's full name."
+        },
+        "headline": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A one-line professional summary. `null` when unknown."
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The person's own description of themselves. `null` when unknown."
+        },
+        "industry": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The industry as the profile names it. `null` when unknown."
+        },
+        "location": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PersonLocation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Where the person is based. `null` when both parts are unknown."
+        },
+        "follower_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "The number of followers of the professional profile. `null` when unknown."
+        },
+        "experience": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Experience"
+          },
+          "description": "Positions, current ones first, then the most recent end or start date first."
+        },
+        "education": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Education"
+          },
+          "description": "Periods of study, most recent first."
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The skills the person lists, distinct, in profile order."
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/PersonLanguage"
+          },
+          "description": "Languages the person speaks, distinct by name."
+        },
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/PersonPost"
+          },
+          "description": "Recent posts dated on or before `updated_at`, newest first."
+        }
+      },
+      "required": [
+        "name",
+        "headline",
+        "summary",
+        "industry",
+        "location",
+        "follower_count",
+        "experience",
+        "education",
+        "skills",
+        "languages",
+        "posts"
+      ],
+      "description": "The properties of a person."
+    },
+    "CryptoProperties": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The asset's name, such as `Bitcoin`."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "The asset's symbol at the instant, such as `BTC`."
+        },
+        "currency": {
+          "$ref": "#/components/schemas/Currency",
+          "description": "The currency of `latest` and `range_52w`, such as `USDT`. Every other priced object names\nits own currency, and `chart` is in the currency of `quote`."
+        },
+        "stale_hours": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "Hours since the last trade (`latest.through`), rounded up, when that trade is more than 24\nhours before the instant. The price is then not current. `null` otherwise."
+        },
+        "latest": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/CryptoDay"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The UTC day that contains the instant, up to the instant. `null` when no price is visible."
+        },
+        "range_52w": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PriceRange"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The low and high of the 365 UTC days to `latest.date`, in `currency`. `null` without `latest`."
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/CryptoQuote"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The price at the URL's `at`, or at the latest minute when the URL has no `at`."
+        },
+        "chart": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PriceChart"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The price every hour over the 24 hours to `quote.at`, in the currency of `quote`. `null`\nwhen no minute in those hours is visible."
+        },
+        "price_on_date": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/CryptoPriceOnDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The UTC day of the URL's `date`, clipped to the instant. `null` without `date`."
+        },
+        "price_history": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/CryptoPriceHistory"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Daily bars for the URL's `from` and `to`. `null` without `from`."
+        }
+      },
+      "required": [
+        "name",
+        "symbol",
+        "currency",
+        "stale_hours",
+        "latest",
+        "range_52w",
+        "quote",
+        "chart",
+        "price_on_date",
+        "price_history"
+      ],
+      "description": "The properties of a crypto asset, which is one coin, not a trading pair. They hold its latest\nUTC day, the price at a minute, and the price on a date or the daily history that the URL asks\nfor. Each day is rolled up from 1-minute bars of the best market Epochal holds for that day."
+    },
+    "WeatherProperties": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The place's name."
+        },
+        "country_code": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code."
+        },
+        "region": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The first-level administrative area, such as a state. `null` when unknown."
+        },
+        "location": {
+          "$ref": "#/components/schemas/GeoPoint",
+          "description": "The place's coordinates, to two decimals."
+        },
+        "timezone": {
+          "type": "string",
+          "description": "The IANA time zone. Every local date in these properties is in it."
+        },
+        "current": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/WeatherCurrent"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The latest report. Filled in the default view, and for a `?date=` of today or a later day\nthat a run covers."
+        },
+        "today": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/WeatherDay"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Today so far. Filled in the default view only."
+        },
+        "yesterday": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/WeatherDay"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The local day before `today`. Filled in the default view only."
+        },
+        "forecast": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/WeatherForecast"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The forecast from the newest run published by the instant. Filled in the default view, for a\n`?date=` of today or a later day that a run covers, and for a `?from=&to=` that ends after\ntoday, with `daily` cut to the range."
+        },
+        "days": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/WeatherDay"
+          },
+          "description": "The days of `?date=` (one) or `?from=&to=` (each local day of the range up to today),\noldest first. `null` in the default view and for a range that starts after today."
+        }
+      },
+      "required": [
+        "name",
+        "country_code",
+        "region",
+        "location",
+        "timezone",
+        "current",
+        "today",
+        "yesterday",
+        "forecast",
+        "days"
+      ],
+      "description": "A place's weather at the instant. It holds the latest report, today's and yesterday's observed\nfigures, and the forecast, or the observed days of a date or range. Today is the local day of\nthe instant. The place is a city, a smaller town, or a landmark. A block is `null` when the\nview doesn't ask for it or the place has no data for it. No block names the source of its\nvalues."
+    },
+    "PlaceProperties": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The place's name."
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The main category, as the map labels it, such as `Historical landmark`. It is normally\n`categories[0]`. `null` when unknown."
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Every category, main one first."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "What the place is, in a sentence or two. `null` when unknown."
+        },
+        "summary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A longer account of the place, one paragraph per entry."
+        },
+        "address": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Address"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The street address. `null` when no part is known."
+        },
+        "location": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/GeoPoint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The place's coordinates. `null` when unknown or out of range."
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The phone number, as the map lists it. `null` when unknown."
+        },
+        "website": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The place's own website, a full URL. `null` when unknown.",
+          "format": "uri"
+        },
+        "opening_hours": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/PlaceOpeningHours"
+          },
+          "description": "Opening hours per weekday, Monday first, in zero to seven rows."
+        },
+        "rating": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PlaceRating"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "A summary of the place's reviews. `null` when neither score nor count is known."
+        },
+        "status": {
+          "$ref": "#/components/schemas/PlaceStatus",
+          "description": "Whether the place is open."
+        }
+      },
+      "required": [
+        "name",
+        "category",
+        "categories",
+        "description",
+        "summary",
+        "address",
+        "location",
+        "phone",
+        "website",
+        "opening_hours",
+        "rating",
+        "status"
+      ],
+      "description": "The properties of a place, which is a business or point of interest, as of the instant."
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "formatted": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The whole address on one line."
+        },
+        "street": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Street and number."
+        },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "City or town."
+        },
+        "region": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "State, province, or equivalent."
+        },
+        "postal_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Postal code."
+        },
+        "country_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ISO 3166-1 alpha-2 country code."
+        }
+      },
+      "description": "A postal address. Any part may be `null`.",
+      "required": [
+        "formatted",
+        "street",
+        "city",
+        "region",
+        "postal_code",
+        "country_code"
+      ]
+    },
+    "RevenueRange": {
+      "type": "object",
+      "properties": {
+        "min_usd": {
+          "type": "number",
+          "format": "double",
+          "description": "The band's lower bound. `0` for the lowest band."
+        },
+        "max_usd": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The band's upper bound. `null` for the open top band."
+        }
+      },
+      "required": [
+        "min_usd",
+        "max_usd"
+      ],
+      "description": "An annual revenue band, in US dollars per year."
+    },
+    "FundingRound": {
+      "type": "object",
+      "properties": {
+        "round_type": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/FundingRoundType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The kind of round. `null` when unknown."
+        },
+        "announced_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "The day the round was announced. `null` when unknown."
+        },
+        "amount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The amount raised, in `currency`. `null` when undisclosed."
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Currency"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The currency of `amount`. `null` exactly when `amount` is `null`."
+        },
+        "investors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/EntityRef"
+          },
+          "description": "The investors named for the round, in source order."
+        }
+      },
+      "required": [
+        "round_type",
+        "announced_on",
+        "amount",
+        "currency",
+        "investors"
+      ],
+      "description": "A funding round."
+    },
+    "PersonLocation": {
+      "type": "object",
+      "properties": {
+        "formatted": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The place as one line, such as `Austin, Texas, United States`. `null` when unknown."
+        },
+        "country_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ISO 3166-1 alpha-2 country code, uppercase. `null` when unknown."
+        }
+      },
+      "description": "Where a person is based.",
+      "required": [
+        "formatted",
+        "country_code"
+      ]
+    },
+    "Experience": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The job title. `null` when unknown."
+        },
+        "organization": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/EntityRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The employer. `null` when unnamed."
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PartialDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "When the position started. `null` when unknown."
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PartialDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "When the position ended. `null` when ongoing or unknown."
+        },
+        "is_current": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the person holds the position now. `null` when unknown."
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Where the position is based, as written. `null` when unknown."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "What the role involved, in the person's words. `null` when unknown."
+        }
+      },
+      "description": "A position a person holds or held.",
+      "required": [
+        "title",
+        "organization",
+        "start_date",
+        "end_date",
+        "is_current",
+        "location",
+        "description"
+      ]
+    },
+    "Education": {
+      "type": "object",
+      "properties": {
+        "school": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/EntityRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The school. `null` when unnamed."
+        },
+        "degree": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The degree earned, as written, such as `MSEE`. `null` when unknown."
+        },
+        "field_of_study": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The field of study, as written. `null` when unknown."
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PartialDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "When the study started. `null` when unknown."
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/PartialDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "When the study ended. `null` when unknown."
+        }
+      },
+      "description": "A period of study.",
+      "required": [
+        "school",
+        "degree",
+        "field_of_study",
+        "start_date",
+        "end_date"
+      ]
+    },
+    "PersonLanguage": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The language, such as `Spanish`."
+        },
+        "proficiency": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LanguageProficiency"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "How well the person knows the language. `null` when unknown."
+        }
+      },
+      "required": [
+        "name",
+        "proficiency"
+      ],
+      "description": "A language a person speaks."
+    },
+    "PersonPost": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The post's text, or the text it reposts when it adds none."
+        },
+        "posted_on": {
+          "type": "string",
+          "format": "date",
+          "description": "The day it was posted."
+        },
+        "like_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "The number of likes. `null` when unknown."
+        },
+        "comment_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "The number of comments. `null` when unknown."
+        }
+      },
+      "required": [
+        "text",
+        "posted_on",
+        "like_count",
+        "comment_count"
+      ],
+      "description": "A post the person published."
+    },
+    "Currency": {
+      "type": "string",
+      "description": "A currency: an ISO 4217 code, or a crypto quote asset such as `USDT`.",
+      "x-extensible-enum": [
+        "USD",
+        "USDT",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "CHF",
+        "CAD",
+        "AUD",
+        "NZD",
+        "HKD",
+        "SGD",
+        "KRW",
+        "INR",
+        "BRL",
+        "MXN",
+        "ZAR",
+        "SEK",
+        "NOK",
+        "DKK",
+        "PLN",
+        "CZK",
+        "HUF",
+        "RON",
+        "TRY",
+        "ILS",
+        "IDR",
+        "MYR",
+        "PHP",
+        "THB",
+        "TWD",
+        "LKR",
+        "ISK"
+      ]
+    },
+    "CryptoDay": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The UTC day."
+        },
+        "open": {
+          "type": "number",
+          "format": "double",
+          "description": "The price at the start of the day's first bar."
+        },
+        "high": {
+          "type": "number",
+          "format": "double",
+          "description": "The highest price."
+        },
+        "low": {
+          "type": "number",
+          "format": "double",
+          "description": "The lowest price."
+        },
+        "close": {
+          "type": "number",
+          "format": "double",
+          "description": "The price at the end of the day's last bar, or the last price while `partial` is true."
+        },
+        "volume": {
+          "type": "number",
+          "format": "double",
+          "description": "The coin traded, in coin units to two decimals."
+        },
+        "quote_volume": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The value traded in `currency`, to two decimals. `null` when the market does not publish it."
+        },
+        "trades": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "The number of trades. `null` when the market does not publish it."
+        },
+        "currency": {
+          "$ref": "#/components/schemas/Currency",
+          "description": "The currency of the day's prices."
+        },
+        "previous_close": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The previous UTC day's close. `null` without a previous day."
+        },
+        "change": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "`close` minus `previous_close`. `null` without a previous day."
+        },
+        "change_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "`change` as a percentage of `previous_close`. `null` without a previous day."
+        },
+        "partial": {
+          "type": "boolean",
+          "description": "Whether the day is still in progress at the instant."
+        },
+        "through": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start of the last minute the day includes."
+        }
+      },
+      "required": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "quote_volume",
+        "trades",
+        "currency",
+        "previous_close",
+        "change",
+        "change_pct",
+        "partial",
+        "through"
+      ],
+      "description": "One UTC day of trading, rolled up from 1-minute bars."
+    },
+    "PriceRange": {
+      "type": "object",
+      "properties": {
+        "low": {
+          "type": "number",
+          "format": "double",
+          "description": "The lowest low."
+        },
+        "high": {
+          "type": "number",
+          "format": "double",
+          "description": "The highest high."
+        }
+      },
+      "required": [
+        "low",
+        "high"
+      ],
+      "description": "The lowest and highest price over a span."
+    },
+    "CryptoQuote": {
+      "type": "object",
+      "properties": {
+        "at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start of the minute. This is the URL's `at` rounded down to the minute, or\n`latest.through` when the URL has no `at`."
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "The price at the end of the minute."
+        },
+        "currency": {
+          "$ref": "#/components/schemas/Currency",
+          "description": "The currency of `price`."
+        }
+      },
+      "required": [
+        "at",
+        "price",
+        "currency"
+      ],
+      "description": "The price at one minute."
+    },
+    "PriceChart": {
+      "type": "object",
+      "properties": {
+        "prices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/PricePoint"
+          },
+          "description": "One price per step that has one, oldest first."
+        }
+      },
+      "required": [
+        "prices"
+      ],
+      "description": "Prices, oldest first. The field that holds the chart says what span it covers and how often."
+    },
+    "CryptoPriceOnDate": {
+      "type": "object",
+      "properties": {
+        "requested_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The `date` the URL asked for."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The UTC day returned. This is `requested_date`, or the day that contains the instant when\nthat day is earlier."
+        },
+        "open": {
+          "type": "number",
+          "format": "double",
+          "description": "The price at the start of the day's first bar."
+        },
+        "high": {
+          "type": "number",
+          "format": "double",
+          "description": "The highest price."
+        },
+        "low": {
+          "type": "number",
+          "format": "double",
+          "description": "The lowest price."
+        },
+        "close": {
+          "type": "number",
+          "format": "double",
+          "description": "The price at the end of the day's last bar, or the last price while `partial` is true."
+        },
+        "volume": {
+          "type": "number",
+          "format": "double",
+          "description": "The coin traded, in coin units to two decimals."
+        },
+        "quote_volume": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The value traded in `currency`, to two decimals. `null` when the market does not publish it."
+        },
+        "trades": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "The number of trades. `null` when the market does not publish it."
+        },
+        "currency": {
+          "$ref": "#/components/schemas/Currency",
+          "description": "The currency of the day's prices."
+        },
+        "previous_close": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The previous UTC day's close. `null` without a previous day."
+        },
+        "change": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "`close` minus `previous_close`. `null` without a previous day."
+        },
+        "change_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "`change` as a percentage of `previous_close`. `null` without a previous day."
+        },
+        "partial": {
+          "type": "boolean",
+          "description": "Whether the day is still in progress at the instant."
+        },
+        "through": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start of the last minute the day includes."
+        }
+      },
+      "required": [
+        "requested_date",
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "quote_volume",
+        "trades",
+        "currency",
+        "previous_close",
+        "change",
+        "change_pct",
+        "partial",
+        "through"
+      ],
+      "description": "The UTC day of the requested `date`, clipped to the instant."
+    },
+    "CryptoPriceHistory": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date",
+          "description": "The first date asked for, inclusive."
+        },
+        "to": {
+          "type": "string",
+          "format": "date",
+          "description": "The last date asked for, inclusive, clipped to the instant."
+        },
+        "bars": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/CryptoDailyBar"
+          },
+          "description": "One row per day, oldest first."
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "bars"
+      ],
+      "description": "Daily bars, one per UTC day with data. The last bar is the partial day when the range reaches\nthe instant."
+    },
+    "GeoPoint": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "format": "double",
+          "description": "Latitude in degrees, north positive."
+        },
+        "lon": {
+          "type": "number",
+          "format": "double",
+          "description": "Longitude in degrees, east positive."
+        }
+      },
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "description": "A point on Earth."
+    },
+    "WeatherCurrent": {
+      "type": "object",
+      "properties": {
+        "observed_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Observation time, or the time a model estimate is valid for."
+        },
+        "temperature": {
+          "$ref": "#/components/schemas/Temperature",
+          "description": "Air temperature."
+        },
+        "model_estimate": {
+          "type": "boolean",
+          "description": "Whether the value is a model estimate, used when no station is near or none has filed in 3\nhours."
+        },
+        "humidity_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Relative humidity, in percent. `null` when the report lacks a temperature or dew point."
+        },
+        "wind": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Wind"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The wind. `null` when the report has no wind group."
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Condition"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The weather or sky condition. `null` when the report has neither."
+        }
+      },
+      "required": [
+        "observed_at",
+        "temperature",
+        "model_estimate",
+        "humidity_pct",
+        "wind",
+        "condition"
+      ],
+      "description": "The latest observation, or the model's estimate for a place with no station near it or whose\nstation has filed nothing in the last 3 hours."
+    },
+    "WeatherDay": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The local date."
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/WeatherStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "How final the observed figures are. `null` for a date after the instant."
+        },
+        "model_estimate": {
+          "type": "boolean",
+          "description": "Whether the figures are a model estimate for a place with no station near it."
+        },
+        "high": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Temperature"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The highest temperature observed."
+        },
+        "low": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Temperature"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The lowest temperature observed."
+        },
+        "precipitation": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Precipitation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The day's precipitation."
+        },
+        "hourly": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/WeatherReading"
+          },
+          "description": "The day's observations. Filled only for a `?date=` of a day up to the instant."
+        }
+      },
+      "required": [
+        "date",
+        "status",
+        "model_estimate",
+        "high",
+        "low",
+        "precipitation",
+        "hourly"
+      ],
+      "description": "One local day: `today`, `yesterday`, or a day of `days`."
+    },
+    "WeatherForecast": {
+      "type": "object",
+      "properties": {
+        "issued_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The initialization time of the run that `hourly` comes from."
+        },
+        "hourly": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/WeatherForecastStep"
+          },
+          "description": "The next 48 hours, every 3 hours."
+        },
+        "daily": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/WeatherForecastDay"
+          },
+          "description": "Up to 15 local days from today, each from the newest run that covers it."
+        }
+      },
+      "required": [
+        "issued_at",
+        "hourly",
+        "daily"
+      ],
+      "description": "The forecast from the newest run published by the instant."
+    },
+    "PlaceOpeningHours": {
+      "type": "object",
+      "properties": {
+        "day": {
+          "$ref": "#/components/schemas/Weekday",
+          "description": "The weekday."
+        },
+        "hours": {
+          "type": "string",
+          "description": "The hours as the map writes them, such as `9 am to 12 am`, or `Closed`."
+        }
+      },
+      "required": [
+        "day",
+        "hours"
+      ],
+      "description": "The hours a place is open on one weekday."
+    },
+    "PlaceRating": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The average star rating, 1 to 5. `null` when unknown."
+        },
+        "review_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "description": "How many reviews the place has. `null` when unknown."
+        },
+        "distribution": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/PlaceStarCount"
+          },
+          "description": "Reviews per star level, from 1 to 5, ascending. It has exactly five rows, or none when unknown."
+        }
+      },
+      "required": [
+        "score",
+        "review_count",
+        "distribution"
+      ],
+      "description": "A summary of a place's reviews."
+    },
+    "PlaceStatus": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/components/schemas/PlaceState",
+          "description": "Whether the place is open."
+        },
+        "detected_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "When the map first showed the current non-open state. `null` for an open place or when\nunknown."
+        }
+      },
+      "required": [
+        "state",
+        "detected_at"
+      ],
+      "description": "A place's state and, when it is not open, when the map first showed it."
+    },
+    "FundingRoundType": {
+      "description": "The kind of a funding round, from the source's funding types.",
+      "type": "string",
+      "x-extensible-enum": [
+        "pre_seed",
+        "seed",
+        "angel",
+        "series_a",
+        "series_b",
+        "series_c",
+        "series_d",
+        "series_e",
+        "series_f",
+        "series_g",
+        "series_h",
+        "series_i",
+        "series_j",
+        "series_unknown",
+        "grant",
+        "debt_financing",
+        "convertible_note",
+        "equity_crowdfunding",
+        "product_crowdfunding",
+        "private_equity",
+        "corporate_round",
+        "post_ipo_equity",
+        "post_ipo_debt",
+        "post_ipo_secondary",
+        "secondary_market",
+        "non_equity_assistance",
+        "initial_coin_offering",
+        "undisclosed"
+      ]
+    },
+    "EntityRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The entity's URL, such as `https://world.epochal.com/organization/<id>`, or the URL of a\npage of one. `null` when the reference has no link, even if the entity has a page.",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name at the instant."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "description": "A reference to another entity or page."
+    },
+    "PartialDate": {
+      "type": "string",
+      "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$",
+      "description": "A date to the precision the source states: `1993`, `1993-04`, or `1993-04-05`."
+    },
+    "LanguageProficiency": {
+      "description": "How well a person speaks a language, from the profile's five levels.",
+      "type": "string",
+      "x-extensible-enum": [
+        "elementary",
+        "limited_working",
+        "professional_working",
+        "full_professional",
+        "native_or_bilingual"
+      ]
+    },
+    "PricePoint": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time of the price."
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "The price."
+        }
+      },
+      "required": [
+        "time",
+        "price"
+      ],
+      "description": "A price at a point in time."
+    },
+    "CryptoDailyBar": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The UTC day."
+        },
+        "open": {
+          "type": "number",
+          "format": "double",
+          "description": "The first price."
+        },
+        "high": {
+          "type": "number",
+          "format": "double",
+          "description": "The highest price."
+        },
+        "low": {
+          "type": "number",
+          "format": "double",
+          "description": "The lowest price."
+        },
+        "close": {
+          "type": "number",
+          "format": "double",
+          "description": "The last price."
+        },
+        "volume": {
+          "type": "number",
+          "format": "double",
+          "description": "The coin traded, in coin units to two decimals."
+        },
+        "currency": {
+          "$ref": "#/components/schemas/Currency",
+          "description": "The currency of the row's prices."
+        }
+      },
+      "required": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "currency"
+      ],
+      "description": "One UTC day's prices, in its `currency`."
+    },
+    "Temperature": {
+      "type": "object",
+      "properties": {
+        "c": {
+          "type": "number",
+          "format": "double",
+          "description": "Degrees Celsius."
+        },
+        "f": {
+          "type": "number",
+          "format": "double",
+          "description": "Degrees Fahrenheit."
+        }
+      },
+      "required": [
+        "c",
+        "f"
+      ],
+      "description": "A temperature in both units. The report's own unit is exact, and the other is converted and\nrounded to 0.1."
+    },
+    "Wind": {
+      "type": "object",
+      "properties": {
+        "speed_kmh": {
+          "type": "number",
+          "format": "double",
+          "description": "Sustained speed, km/h."
+        },
+        "speed_mph": {
+          "type": "number",
+          "format": "double",
+          "description": "Sustained speed, mph."
+        },
+        "direction_deg": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64",
+          "minimum": 0,
+          "maximum": 65535,
+          "description": "The direction the wind blows from, in degrees clockwise from north. `null` for a calm or\nvariable wind."
+        }
+      },
+      "required": [
+        "speed_kmh",
+        "speed_mph",
+        "direction_deg"
+      ],
+      "description": "A wind's speed and direction."
+    },
+    "Condition": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "The WMO weather code (code table 4677, 0–99).",
+          "minimum": 0,
+          "maximum": 255,
+          "format": "int64"
+        },
+        "label": {
+          "type": "string",
+          "description": "The code in words, such as `Partly cloudy`."
+        }
+      },
+      "required": [
+        "code",
+        "label"
+      ],
+      "description": "A WMO weather code and its label."
+    },
+    "WeatherStatus": {
+      "description": "How final a day's observed figures are.\n\n- `preliminary`: Issued during the day, before the figure is settled.\n- `final`: The settled figure, or a correction of it.\n- `not_reported`: No report is visible at the instant.",
+      "type": "string",
+      "x-extensible-enum": [
+        "preliminary",
+        "final",
+        "not_reported"
+      ]
+    },
+    "Precipitation": {
+      "type": "object",
+      "properties": {
+        "mm": {
+          "type": "number",
+          "format": "double",
+          "description": "Millimeters."
+        },
+        "inch": {
+          "type": "number",
+          "format": "double",
+          "description": "Inches."
+        }
+      },
+      "required": [
+        "mm",
+        "inch"
+      ],
+      "description": "Precipitation in both units."
+    },
+    "WeatherReading": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Observation time."
+        },
+        "temperature": {
+          "$ref": "#/components/schemas/Temperature",
+          "description": "Air temperature."
+        }
+      },
+      "required": [
+        "time",
+        "temperature"
+      ],
+      "description": "One observation of a day."
+    },
+    "WeatherForecastStep": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end of the step."
+        },
+        "temperature": {
+          "$ref": "#/components/schemas/Temperature",
+          "description": "Temperature at the end of the step."
+        },
+        "precipitation": {
+          "$ref": "#/components/schemas/Precipitation",
+          "description": "Precipitation in the step."
+        }
+      },
+      "required": [
+        "time",
+        "temperature",
+        "precipitation"
+      ],
+      "description": "One forecast step."
+    },
+    "WeatherForecastDay": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The local date."
+        },
+        "high": {
+          "$ref": "#/components/schemas/Temperature",
+          "description": "Forecast high."
+        },
+        "low": {
+          "$ref": "#/components/schemas/Temperature",
+          "description": "Forecast low."
+        },
+        "precipitation": {
+          "$ref": "#/components/schemas/Precipitation",
+          "description": "Forecast precipitation."
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Condition"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The day's most significant weather condition."
+        }
+      },
+      "required": [
+        "date",
+        "high",
+        "low",
+        "precipitation",
+        "condition"
+      ],
+      "description": "The forecast of one local day: a row of `forecast.daily`."
+    },
+    "Weekday": {
+      "description": "A day of the week. Values not listed may appear.",
+      "type": "string",
+      "x-extensible-enum": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ]
+    },
+    "PlaceStarCount": {
+      "type": "object",
+      "properties": {
+        "stars": {
+          "type": "integer",
+          "description": "The star level, 1 to 5.",
+          "minimum": 1,
+          "maximum": 5,
+          "format": "int64"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Reviews at that level.",
+          "minimum": 0,
+          "format": "int64"
+        }
+      },
+      "required": [
+        "stars",
+        "count"
+      ],
+      "description": "How many reviews gave one star level."
+    },
+    "PlaceState": {
+      "description": "Whether a place is open.\n\n- `closed`: Permanently closed.\n- `removed`: Gone from the map.",
+      "type": "string",
+      "x-extensible-enum": [
+        "open",
+        "temporarily_closed",
+        "closed",
+        "removed"
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+[package]
+name = "epochal-sandbox"
+description = "Epochal sandboxes, in time-portal mode: Linux boxes whose clock and network are held to a past instant."
+version = { workspace = true }
+readme = "README.md"
+edition = { workspace = true }
+rust-version = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+homepage = { workspace = true }
+keywords = ["epochal", "time-portal", "sandbox"]
+categories = ["api-bindings", "web-programming::http-client"]
+
+[dependencies]
+axum = { workspace = true }
+bytes = { workspace = true }
+futures-util = { workspace = true }
+h2 = { workspace = true }
+hyper = { workspace = true }
+hyper-util = { workspace = true }
+tar = { workspace = true }
+tempfile = { workspace = true }
+thiserror = { workspace = true }
+epochal-api = { workspace = true }
+tokio = { workspace = true, features = ["fs", "io-util", "sync", "time"] }
+
+[dev-dependencies]
+base64 = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["process", "test-util"] }
+
+[[test]]
+name = "sandbox"
+path = "tests/sandbox/main.rs"
+
+[lints]
+workspace = true

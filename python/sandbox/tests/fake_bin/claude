@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+"""A stand-in for Claude Code: calls each MCP tool and one model turn at the URLs it was given,
+and prints what came back as stream-json lines."""
+
+import json
+import os
+import sys
+import urllib.error
+import urllib.request
+
+argv = sys.argv[1:]
+mcp = json.loads(argv[argv.index("--mcp-config") + 1])["mcpServers"]["epochal"]["url"]
+
+
+def post(url, body, headers):
+    request = urllib.request.Request(url, json.dumps(body).encode(), headers, method="POST")
+    try:
+        answer = urllib.request.urlopen(request)
+    except urllib.error.HTTPError as e:
+        answer = e
+    with answer:
+        data = answer.read().decode()
+    if data.startswith(("data:", "event:", "id:", ":")):  # An SSE reply: its JSON-RPC message.
+        data = next(line[5:] for line in data.splitlines() if line.startswith("data:") and line[5:].strip())
+    return answer.status, dict(answer.headers), json.loads(data)
+
+
+def tool(name, arguments):
+    message = {"jsonrpc": "2.0", "id": 1, "method": "tools/call"}
+    params = {"name": name, "arguments": arguments}
+    _, _, reply = post(mcp, {**message, "params": params}, MCP)
+    return reply["result"]["content"][0]["text"]
+
+
+# Streamable HTTP, as a real MCP client speaks it: initialize first, then the calls.
+MCP = {"content-type": "application/json", "accept": "application/json, text/event-stream"}
+hello = {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "fake", "version": "1"}}
+_, _, init = post(mcp, {"jsonrpc": "2.0", "id": 0, "method": "initialize", "params": hello}, MCP)
+_, _, listed = post(mcp, {"jsonrpc": "2.0", "id": 0, "method": "tools/list"}, MCP)
+headers = {"content-type": "application/json", "authorization": "Bearer " + os.environ["ANTHROPIC_AUTH_TOKEN"]}
+_, got_headers, turn = post(os.environ["ANTHROPIC_BASE_URL"] + "/v1/messages", {"model": os.environ["ANTHROPIC_MODEL"]}, headers)
+refused, _, _ = post(os.environ["ANTHROPIC_BASE_URL"] + "/v1/models", {}, headers)
+for event in (
+    {"refused": refused},
+    {"server": init["result"].get("serverInfo", {})},
+    {"tools": sorted(t["name"] for t in listed["result"]["tools"])},
+    {"search": tool("web_search", {"query": argv[argv.index("-p") + 1]})},
+    {"fetch": tool("web_fetch", {"url": "https://example.com/a"})},
+    {"turn": turn, "headers": sorted(h.lower() for h in got_headers)},
+):
+    print(json.dumps(event), flush=True)

@@ -1,0 +1,46 @@
+[project]
+name = "epochal-python"
+version = "0"
+requires-python = ">=3.11"
+dependencies = ["epochal-api", "epochal-sandbox"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.8", "mypy>=1.13"]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["api", "sandbox"]
+
+[tool.uv.sources]
+epochal-api = { workspace = true }
+epochal-sandbox = { workspace = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "api/tests", "sandbox/tests"]
+addopts = ["--import-mode=importlib"]
+pythonpath = ["api/tests", "sandbox/tests"]
+filterwarnings = ["error"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "PT", "ASYNC"]
+# `timeout` parameters are a box's or command's lifetime on the server, not a local deadline.
+ignore = ["ASYNC109"]
+
+[tool.ruff.lint.per-file-ignores]
+# The rewrite rules are verbatim source text.
+"scripts/unasync.py" = ["E501"]
+# Docstrings are the spec's descriptions, verbatim.
+"api/src/epochal/api/entities.py" = ["E501", "RUF001"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+explicit_package_bases = true
+mypy_path = ["api/src", "sandbox/src"]
+files = ["api/src", "sandbox/src", "sandbox/examples"]

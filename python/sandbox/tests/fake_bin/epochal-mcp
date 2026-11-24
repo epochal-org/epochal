@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""A stand-in for the Rust ``epochal-mcp --time-portal AS_OF --serve http:PORT``: the same two
+tools, answered through the Python client at the as-of it was given, in the same text."""
+
+import argparse
+import json
+import os
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+from epochal.api import Client
+
+args = argparse.ArgumentParser()
+args.add_argument("--time-portal", dest="as_of", required=True)
+args.add_argument("--serve", required=True)
+opts = args.parse_args()
+# Started without the model provider's variables: record whether any got through.
+LEAKED = sorted(k for k in os.environ if k.startswith(("EPOCHAL_LLM_", "ANTHROPIC_", "OPENAI_")))
+portal = Client().time_portal(opts.as_of)
+
+
+def call(name, arguments):
+    if name == "web_search":
+        found = portal.search(arguments["query"], num_results=10)
+        hits = [f"{i}. {h.title}\n   {h.url}\n   {h.snippet.strip()}\n" for i, h in enumerate(found.results, 1)]
+        return "\n".join(hits)
+    page = portal.fetch(arguments["url"], max_characters=20_000)
+    return f"{page.title}\n{page.final_url}\n\n{page.content}"
+
+
+class Handler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        message = json.loads(self.rfile.read(int(self.headers["content-length"])))
+        if message.get("method") == "initialize":
+            info = {"name": "stand-in", "leaked": LEAKED}
+            result = {"protocolVersion": "2025-06-18", "capabilities": {"tools": {}}, "serverInfo": info}
+        elif message.get("method") == "tools/list":
+            result = {"tools": [{"name": "web_fetch"}, {"name": "web_search"}]}
+        else:
+            text = call(message["params"]["name"], message["params"]["arguments"])
+            result = {"content": [{"type": "text", "text": text}]}
+        body = json.dumps({"jsonrpc": "2.0", "id": message["id"], "result": result}).encode()
+        self.send_response(200)
+        self.send_header("content-type", "application/json")
+        self.send_header("content-length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def log_message(self, *_):
+        pass
+
+
+ThreadingHTTPServer(("127.0.0.1", int(opts.serve.removeprefix("http:"))), Handler).serve_forever()

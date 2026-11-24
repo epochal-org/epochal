@@ -1,0 +1,29 @@
+[package]
+name = "epochal-api"
+description = "Client for the Epochal API. Its time portal serves web search, web fetch and sandboxes held to a past instant."
+version = { workspace = true }
+readme = "README.md"
+edition = { workspace = true }
+rust-version = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+homepage = { workspace = true }
+keywords = ["epochal", "time-portal", "search", "sandbox"]
+categories = ["api-bindings", "web-programming::http-client"]
+
+[dependencies]
+base64 = { workspace = true }
+bytes = { workspace = true }
+chrono = { workspace = true, features = ["serde"] }
+percent-encoding = { workspace = true }
+reqwest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+axum = { workspace = true }
+tokio = { workspace = true }
+
+[lints]
+workspace = true

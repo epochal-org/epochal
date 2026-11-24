@@ -1,0 +1,104 @@
+{
+  "id": "https://world.epochal.com/stock/rBCnBcK3j18",
+  "type": "stock",
+  "schema_version": 1,
+  "updated_at": "2026-11-20T14:39:00Z",
+  "properties": {
+    "name": "Nvidia Corp",
+    "security_type": "common_stock",
+    "identifiers": {
+      "ticker": "NVDA"
+    },
+    "issuer": {
+      "id": null,
+      "name": "Nvidia Corp"
+    },
+    "currency": "USD",
+    "delisted_on": null,
+    "latest": {
+      "date": "2026-11-19",
+      "open": 152.915,
+      "high": 158.1301,
+      "low": 145.71,
+      "close": 145.98,
+      "volume": 322940099,
+      "change": -4.98,
+      "change_pct": -3.2989,
+      "closed_at": "2026-11-19T21:00:00Z"
+    },
+    "range_52w": {
+      "low": 145.71,
+      "high": 243.37
+    },
+    "intraday": {
+      "as_of": "2026-11-20T14:39:00Z",
+      "session": "regular",
+      "price": 140.73,
+      "previous_close": 145.98,
+      "change": -5.25,
+      "change_pct": -3.5964,
+      "ohlc": {
+        "open": 143.771,
+        "high": 143.771,
+        "low": 140.367,
+        "close": 140.73
+      },
+      "volume": 30821446,
+      "last_hour": {
+        "recent": [
+          {
+            "time": "2026-11-20T14:34:00Z",
+            "close": 140.882
+          },
+          {
+            "time": "2026-11-20T14:35:00Z",
+            "close": 140.371
+          },
+          {
+            "time": "2026-11-20T14:36:00Z",
+            "close": 140.994
+          },
+          {
+            "time": "2026-11-20T14:37:00Z",
+            "close": 141.044
+          },
+          {
+            "time": "2026-11-20T14:38:00Z",
+            "close": 140.73
+          }
+        ]
+      },
+      "five_minute": [
+        {
+          "time": "2026-11-20T14:30:00Z",
+          "open": 143.771,
+          "high": 143.771,
+          "low": 140.764,
+          "close": 140.882
+        },
+        {
+          "time": "2026-11-20T14:35:00Z",
+          "open": 140.868,
+          "high": 141.091,
+          "low": 140.367,
+          "close": 140.73
+        }
+      ]
+    },
+    "chart": {
+      "prices": [
+        {
+          "time": "2026-11-20T14:30:00Z",
+          "price": 143.771
+        },
+        {
+          "time": "2026-11-20T14:39:00Z",
+          "price": 140.73
+        }
+      ]
+    },
+    "price_on_date": null,
+    "price_history": null,
+    "offering": null
+  }
+}

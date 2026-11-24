@@ -1,0 +1,33 @@
+[project]
+name = "epochal-sandbox"
+version = "0.1.0"
+description = "Epochal sandboxes, in time-portal mode: Linux boxes whose clock and network are held to a past instant."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11.4"
+authors = [{ name = "Epochal" }]
+keywords = ["epochal", "time-portal", "sandbox"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Framework :: AsyncIO",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
+]
+dependencies = ["epochal-api>=0.1.0,<0.2", "h2>=4.1,<5"]
+
+[project.urls]
+Homepage = "https://epochal.com"
+Repository = "https://github.com/epochal-org/epochal"
+
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/epochal"]

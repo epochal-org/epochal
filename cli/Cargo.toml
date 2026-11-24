@@ -1,0 +1,46 @@
+[package]
+name = "epochal-cli"
+description = "The Epochal command line: run an agent in a sandbox held to a past instant, and search or read the web as it stood then."
+version = { workspace = true }
+readme = "README.md"
+edition = { workspace = true }
+rust-version = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+homepage = { workspace = true }
+keywords = ["epochal", "time-portal", "agents"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "epochal"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = { workspace = true }
+axum = { workspace = true }
+bytes = { workspace = true }
+bytesize = { workspace = true }
+clap = { workspace = true, features = ["env"] }
+console = { workspace = true }
+futures-util = { workspace = true }
+humantime = { workspace = true }
+indicatif = { workspace = true }
+regex = { workspace = true }
+reqwest = { workspace = true, features = ["stream"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tempfile = { workspace = true }
+epochal-api = { workspace = true }
+epochal-mcp = { workspace = true }
+epochal-sandbox = { workspace = true }
+tokio = { workspace = true, features = ["signal"] }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+[dev-dependencies]
+base64 = { workspace = true }
+tokio = { workspace = true, features = ["process", "io-util"] }
+rmcp = { workspace = true, features = ["client", "transport-streamable-http-client-reqwest"] }
+
+[lints]
+workspace = true

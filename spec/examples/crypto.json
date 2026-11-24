@@ -1,0 +1,55 @@
+{
+  "id": "https://world.epochal.com/crypto/kL2xSZlDKXw",
+  "type": "crypto",
+  "schema_version": 1,
+  "updated_at": "2026-11-13T14:58:00Z",
+  "properties": {
+    "name": "Bitcoin",
+    "symbol": "BTC",
+    "currency": "USD",
+    "stale_hours": null,
+    "latest": {
+      "date": "2026-11-13",
+      "open": 71381.09,
+      "high": 71416.98,
+      "low": 67500,
+      "close": 68877.66,
+      "volume": 1606.78,
+      "quote_volume": null,
+      "trades": null,
+      "currency": "USD",
+      "previous_close": 71374.07,
+      "change": -2496.41,
+      "change_pct": -3.4976,
+      "partial": true,
+      "through": "2026-11-13T14:58:00Z"
+    },
+    "range_52w": {
+      "low": 57734.63,
+      "high": 99815
+    },
+    "quote": {
+      "at": "2026-11-13T14:58:00Z",
+      "price": 68877.66,
+      "currency": "USD"
+    },
+    "chart": {
+      "prices": [
+        {
+          "time": "2026-11-12T14:58:00Z",
+          "price": 71120.4
+        },
+        {
+          "time": "2026-11-12T15:58:00Z",
+          "price": 71388.12
+        },
+        {
+          "time": "2026-11-13T14:58:00Z",
+          "price": 68877.66
+        }
+      ]
+    },
+    "price_on_date": null,
+    "price_history": null
+  }
+}
